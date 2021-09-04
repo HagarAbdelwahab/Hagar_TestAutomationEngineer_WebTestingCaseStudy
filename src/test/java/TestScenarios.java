@@ -14,7 +14,7 @@ public class TestScenarios extends BaseTest {
     OpenAccountPage openAccountPage;
 
     /*
-     *Using the same base test web driver for the pages
+     *Using the same base test web driver for different pages
      */
     @BeforeClass
     public void createAnInstanceOfEachPage() {
@@ -23,14 +23,13 @@ public class TestScenarios extends BaseTest {
         customer = new AddCustomerPage(driver);
         customerList = new CustomerListPage(driver);
         openAccountPage = new OpenAccountPage(driver);
-
     }
 
     @Test(priority = 1)
     @Severity(SeverityLevel.CRITICAL)
     @Description("Test the first scenario of adding a new customer")
     @Tag(name = "TC_01")
-    public void test1() {
+    public void testTheFirstScenario() {
         home.openHomePage();
         home.openBankingLink();
         banking.loginAsAManager();
@@ -39,21 +38,20 @@ public class TestScenarios extends BaseTest {
         customerList.checkCustomerInfo();
     }
 
-    @Test(dependsOnMethods = {"test1"})
+    @Test(dependsOnMethods = {"testTheFirstScenario"})
     @Severity(SeverityLevel.CRITICAL)
     @Description("Test the second scenario of adding a bank account to the customer and validating customer info")
     @Tag(name = "TC_02")
-    public void test2() {
+    public void testTheSecondScenario() {
         openAccountPage.addAccountToCustomer();
         customerList.checkCustomerAccountNumber();
     }
 
-    @Test(dependsOnMethods = {"test2", "test1"})
+    @Test(dependsOnMethods = {"testTheFirstScenario", "testTheSecondScenario"})
     @Severity(SeverityLevel.CRITICAL)
     @Description("Test the third scenario of deleting the user just created")
     @Tag(name = "TC_03")
-    public void test3() {
-
+    public void testTheThirdScenario() {
         customerList.deleteTheCreatedCustomer();
     }
 

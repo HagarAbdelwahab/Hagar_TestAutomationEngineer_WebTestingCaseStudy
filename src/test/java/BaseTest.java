@@ -16,24 +16,19 @@ public class BaseTest {
      * your test in the BrowserConfig.csv file attached with the relative location for the driver executable file.
      */
     @BeforeClass
-    public void setupDriver() throws IOException{
+    public void setupDriver() throws IOException {
         String CSV_file = Constants.TEST_DATA_PATH + "BrowserConfig.csv";
         reader = new CSVReader(new FileReader(CSV_file));
         String[] cell;
 
-        while ((cell = reader.readNext()) != null)
-        {
+        while ((cell = reader.readNext()) != null) {
             String driverrname = cell[0];
             String driverloaction = cell[1];
 
-            if(driverrname.equalsIgnoreCase("Chrome"))
-            {
-                System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir")+"\\"+driverloaction);
+            if (driverrname.equalsIgnoreCase("Chrome")) {
+                System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "\\" + driverloaction);
                 driver = new ChromeDriver();
-            }
-
-            else
-            {
+            } else {
                 System.out.println("driver you specified is not available");
             }
             driver.manage().window().maximize();

@@ -8,6 +8,7 @@ import org.testng.asserts.SoftAssert;
 
 import java.util.List;
 
+import static pages.HomePage.*;
 import static pages.AddCustomerPage.*;
 import static pages.OpenAccountPage.accountNumber;
 import static util.datareaders.ElementReader.readElement;
@@ -21,7 +22,9 @@ public class CustomerListPage {
 
     private static final SoftAssert softAssertions = new SoftAssert();
 
-
+    /**
+     * this method is to check the order of the just registered user to make sure that its order in the list matched customer number
+     */
     public void checkUserOrder() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(readElement("searchCustomersField"))));
         System.out.println("custmer id: " + customerID);
@@ -35,20 +38,11 @@ public class CustomerListPage {
                 softAssertions.assertAll();
             }
         }
-//        for (WebElement element2 : elementList2) {
-//            System.out.println(element2.getText());
-//            if (element2.getText().equalsIgnoreCase(firstName))
-//                System.out.println("elemet is :" + elementList2.indexOf(element2));
-//            softAssertions.assertEquals(elementList2.indexOf(element2), Integer.parseInt(customerID) - 1);
-//            softAssertions.assertAll();
-//        }
-        //  List<WebElement> elementList = driver.findElements(By.xpath(readElement("customerRow")));
-//        softAssertions.assertEquals(elementList.get(Integer.parseInt(customerID) - 1).findElement(By.xpath("./td[1]")).getText(), firstName);
-//        softAssertions.assertEquals(elementList.get(Integer.parseInt(customerID) - 1).findElement(By.xpath("./td[2]")).getText(), lastName);
-//        softAssertions.assertEquals(elementList.get(Integer.parseInt(customerID) - 1).findElement(By.xpath("./td[3]")).getText(), postalCode);
-//        softAssertions.assertAll();
     }
 
+    /**
+     * this method is to check customer info first, second, postal code in when search for it
+     */
     public void checkCustomerInfo() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(readElement("searchCustomersField"))));
         System.out.println(driver.findElement(By.xpath(readElement("searchCustomersField"))).getAttribute("placeholder"));
@@ -61,6 +55,9 @@ public class CustomerListPage {
         softAssertions.assertAll();
     }
 
+    /*
+     * this method is to check customer account number returned while adding a new account by bank manager
+     */
     public void checkCustomerAccountNumber() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(readElement("searchCustomersField"))));
         driver.findElement(By.xpath(readElement("searchCustomersField"))).sendKeys("Hagar");
@@ -68,6 +65,9 @@ public class CustomerListPage {
         softAssertions.assertAll();
     }
 
+    /**
+     * this method is to delete account by bank manager
+     */
     public void deleteTheCreatedCustomer() {
         driver.findElement(By.xpath(readElement("searchCustomersField"))).clear();
         driver.findElement(By.xpath(readElement("searchCustomersField"))).sendKeys("Hagar");
